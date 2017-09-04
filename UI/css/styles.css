@@ -46,6 +46,7 @@ main {
     height:70%;
 }
 
+/* WELCOME MESSAGE */
 div#welcome {
     color:black;
     background-color: #FFEB3B;
@@ -53,6 +54,7 @@ div#welcome {
     border-radius: 10px;
     margin: 10% 25%;
 }
+
 
 #welcome h1 {
     font-family: 'Permanent Marker', cursive;
@@ -64,4 +66,36 @@ div#welcome {
     margin: 8% auto;
     border-radius: 8px;
     font-size: 25px;
+}
+
+/* REGISTER FORM */
+div#register {
+    color:black;
+    background-color: #FFEB3B;
+    border: 10px solid #906c05;
+    border-radius: 10px;
+    margin: 10% 25%;
+}
+
+fieldset {
+    border: none;
+}
+
+legend {
+    font-size: 130%;
+}
+
+label {
+    display:block;
+    margin: 0 auto;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
 }
