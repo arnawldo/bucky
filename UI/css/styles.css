@@ -99,3 +99,30 @@ input[type=submit] {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+/* BUCKETLIST */
+h2 {
+    color: #000;
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: .3em;
+    margin: 23px 0 23px 0;
+}
+
+#bucketlist ul {
+    margin: 5% 15%;
+    background-color: #FFEB3B;
+    border: 10px solid #906c05;
+    border-radius: 10px;
+
+}
+
+#bucketlist li {
+    max-width: 90%;
+    height: 40px;
+    padding: 10px 0;
+    margin: 20px 0;
+    text-align: left;
+    border-bottom: 2px solid black;
+}
