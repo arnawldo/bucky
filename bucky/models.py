@@ -24,7 +24,8 @@ class AppManager(object):
         :type email: str
         :param password: hashed password
         :type password: str
-        :return: None
+        :return: created user instance
+        :rtype: User
         """
 
         try:
@@ -32,6 +33,7 @@ class AppManager(object):
             raise UserAlreadyExistsError("User <{}> already exists".format(user.username))
         except KeyError:
             self.users[username] = User(username, email, password)
+            return self.users[username]
 
     def delete_user(self, username):
         """
@@ -45,6 +47,19 @@ class AppManager(object):
             del self.users[username]
         except KeyError:
             raise UserNotExistsError("User <{}> cannot be found".format(username))
+
+    def get_user(self, username):
+        """
+        Retrieve user instance of given name
+
+        :param username: username of user
+        :return: User object
+        """
+        try:
+            return self.users[username]
+        except KeyError:
+            raise UserNotExistsError("User <{}> cannot be found".format(username))
+
 
 
 class User(object):
