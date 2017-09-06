@@ -49,3 +49,12 @@ def test__app_manager_delete_non_existant_user__raises(am):
      """
     with pytest.raises(UserNotExistsError):
         am.delete_user(username="uname")
+
+def test__app_manager_get_existing_user__succeeds(am):
+    """Make sure app manager can retrieve an existing User object"""
+    am.create_user(username="uname",
+                   password="passy",
+                   email="user@gmail.com")
+    user = am.get_user(username="uname")
+    assert user
+    assert user.username == "uname"
