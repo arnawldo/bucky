@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+body {
+    background-image: url(../images/doodles.png);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#page {
+    margin: 0 auto;
+    width: 70%;
+    height: 800px;
+    background-color: rgba(255,255,255,0.6);
+    border: 2px solid grey;
+    border-radius: 10px;
+}
+
+header {
+    background-color:white;
+    width: 100%;
+    height: 10%;
+    border-bottom: 5px solid black;
+}
+
+nav {
+    margin: 5% auto;
+    width:100%;
+}
+
+nav a {
+    color: #000;
+    font-size: 1.5em;
+    text-decoration: none;
+    margin: 0px 20px;
+
+}
+
+nav a:hover {
+    text-decoration:underline;
+}
+
+main {
+    margin: 0;
+    padding: 0px;
+    height:70%;
+}
+
+/* WELCOME MESSAGE */
+div#welcome {
+    color:black;
+    background-color: #FFEB3B;
+    border: 10px solid #906c05;
+    border-radius: 10px;
+    margin: 10% 25%;
+}
+
+
+#welcome h1 {
+    font-family: 'Permanent Marker', cursive;
+    padding: 10%;
+    text-decoration: underline;
+}
+
+#welcome button {
+    margin: 8% auto;
+    border-radius: 8px;
+    font-size: 25px;
+}
+
+/* REGISTER FORM */
+div#register {
+    color:black;
+    background-color: #FFEB3B;
+    border: 10px solid #906c05;
+    border-radius: 10px;
+    margin: 10% 25%;
+}
+
+fieldset {
+    border: none;
+}
+
+legend {
+    font-size: 130%;
+}
+
+label {
+    display:block;
+    margin: 0 auto;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* BUCKETLIST */
+h2 {
+    color: #000;
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: .3em;
+    margin: 23px 0 23px 0;
+}
+
+#bucketlist ul {
+    margin: 5% 15%;
+    background-color: #FFEB3B;
+    border: 10px solid #906c05;
+    border-radius: 10px;
+
+}
+
+#bucketlist li {
+    max-width: 90%;
+    height: 40px;
+    padding: 10px 0;
+    margin: 20px 0;
+    text-align: left;
+    border-bottom: 2px solid black;
+}
