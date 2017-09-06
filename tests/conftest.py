@@ -1,18 +1,14 @@
 import pytest
-from flask import Flask
+from bucky import create_app
 
 
 @pytest.fixture
 def app():
 
-    test_app = Flask(__name__)
+    app = create_app('testing')
 
-    @test_app.route('/')
-    def index():
-        return '<h1>Hello World!</h1>'
-
-    with test_app.app_context():
-        yield test_app
+    with app.app_context():
+        yield app
 
 
 @pytest.fixture
