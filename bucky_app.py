@@ -1,8 +1,11 @@
-from flask import Flask
+import os
+from bucky import create_app
+import click
 
-app = Flask(__name__)
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
 
-@app.route('/')
-def index():
-    return '<h1>Hello World!</h1>'
+@app.shell_context_processor
+def make_shell_context():
+    return dict(app=app)
