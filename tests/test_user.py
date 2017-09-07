@@ -1,6 +1,7 @@
 import pytest
 
-from bucky.exceptions import BucketListAlreadyExistsError, BucketListNotExistsError
+from bucky.exceptions import BucketListAlreadyExistsError, \
+    BucketListNotExistsError
 from bucky.models import AppManager, BucketList
 
 
@@ -62,7 +63,7 @@ def test__user_can_retrieve_bucketlist__succeeds(user_uname):
 def test__user_cannot_retrieve_nonexistent_bucketlist__raises(user_uname):
     """Make sure a user cannot retrieve a non-existent bucket-list"""
     with pytest.raises(BucketListNotExistsError):
-        bucketlist = user_uname.get_bucketlist(name="first one")
+        user_uname.get_bucketlist(name="first one")
 
 
 def test__user_can_delete_bucketlist__succeeds(user_uname):
@@ -77,4 +78,4 @@ def test__user_can_delete_bucketlist__succeeds(user_uname):
 def test__user_cannot_delete_nonexistent_bucketlist__raises(user_uname):
     """Make sure a user cannot delete a non-existent bucket-list"""
     with pytest.raises(BucketListNotExistsError):
-        status = user_uname.delete_bucketlist(name="first one")
+        user_uname.delete_bucketlist(name="first one")

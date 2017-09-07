@@ -1,5 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from bucky.exceptions import UserNotExistsError, UserAlreadyExistsError
+from bucky.exceptions import UserNotExistsError, UserAlreadyExistsError, BucketListAlreadyExistsError, \
+    BucketListNotExistsError
 
 
 class AppManager(object):
@@ -70,6 +71,7 @@ class User(object):
         username -- username of user
         email -- email address of user
         password -- hashed password
+        buckets -- bucket-lists created by user
     """
 
     def __init__(self, username, email, password):
@@ -77,6 +79,7 @@ class User(object):
         self.email = email
         self.password_hashed = None
         self.set_password(password)
+        self.buckets = {}
 
     def set_password(self, password):
         """Hash password plus a salt --algorithm by Werkzeug
@@ -97,6 +100,48 @@ class User(object):
         """
         return check_password_hash(self.password_hashed, password)
 
+    def create_bucketlist(self, name):
+        """Create bucket-list with given name
+
+        :param name: name of bucketlist
+        :type name: str
+        :return: created bucket-list
+        :rtype: BucketList
+        """
+        try:
+            bucketlist = self.buckets[name]
+            raise BucketListAlreadyExistsError("BucketList <{}> already exists".format(bucketlist.name))
+        except KeyError:
+            self.buckets[name] = BucketList(name=name)
+            return self.buckets[name]
+
+    def get_bucketlist(self, name):
+        """Retrieve bucket-list of given name
+
+        :param name: name of bucket-list
+        :type name: str
+        :return: bucket-list
+        :rtype: BucketList
+        """
+        try:
+            return self.buckets[name]
+        except KeyError:
+            raise BucketListNotExistsError("BucketList <{}> cannot be found".format(name))
+
+    def delete_bucketlist(self, name):
+        """Delete bucket-list of given name
+
+        :param name: name of bucket-list
+        :type name: str
+        :return: operation success
+        :rtype: bool
+        """
+        try:
+            del self.buckets[name]
+            return True
+        except KeyError:
+            raise BucketListNotExistsError("BucketList <{}> cannot be found".format(name))
+
 
 class BucketList(object):
     """Class for bucket-lists created by users of app
@@ -104,4 +149,6 @@ class BucketList(object):
     Attributes:
         name -- name of bucket-list
     """
-    pass
+
+    def __init__(self, name):
+        self.name = name
