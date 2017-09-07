@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %} - Bucky</title>
+        <link href="{{ url_for('static', filename='styles.css') }}" type="text/css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    </head>
+{% endblock %}
+<body>
+
+{% block body %}
+
+    <div id="page">
+
+        {% block header %}
+            <header>
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#">Sign in</a>
+                    <a href="#">Sign up</a>
+                </nav>
+            </header><!-- end header-->
+        {% endblock %}
+
+
+        {% block content %}
+            <main>
+                {#Flash messages#}
+                {% for message in get_flashed_messages() %}
+                    <div class="alert">
+                        <span class="closebtn">&times;</span>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {#Page content#}
+                {% block page_content %}{% endblock %}
+            </main><!-- end main -->
+        {% endblock %}
+
+
+    </div><!--end page-->
+
+{% endblock %}
+
+{#Scripts#}
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
