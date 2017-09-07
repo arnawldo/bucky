@@ -13,6 +13,7 @@ class UserNotExistsError(Error):
     def __init__(self, message):
         self.message = message
 
+
 class UserAlreadyExistsError(Error):
     """Exception raised when creating user but already exists in App Manager
 
@@ -22,3 +23,21 @@ class UserAlreadyExistsError(Error):
 
     def __init__(self, message):
         self.message = message
+
+
+class BucketListNotExistsError(Error):
+    """Exception raised when bucket-list cannot be found in user
+
+        Attributes:
+            message -- explanation of error
+        """
+    pass
+
+
+class BucketListAlreadyExistsError(Error):
+    """Exception raised when creating bucket-list but already exists in user
+
+        Attributes:
+            message -- explanation of error
+        """
+    pass

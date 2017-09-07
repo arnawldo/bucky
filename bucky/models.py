@@ -63,7 +63,6 @@ class AppManager(object):
             raise UserNotExistsError("User <{}> cannot be found".format(username))
 
 
-
 class User(object):
     """Class for users of app
 
@@ -97,3 +96,12 @@ class User(object):
         :rtype: bool
         """
         return check_password_hash(self.password_hashed, password)
+
+
+class BucketList(object):
+    """Class for bucket-lists created by users of app
+
+    Attributes:
+        name -- name of bucket-list
+    """
+    pass

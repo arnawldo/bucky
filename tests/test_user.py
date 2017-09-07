@@ -1,5 +1,7 @@
 import pytest
-from bucky.models import AppManager
+
+from bucky.exceptions import BucketListAlreadyExistsError, BucketListNotExistsError
+from bucky.models import AppManager, BucketList
 
 
 @pytest.fixture
@@ -32,3 +34,47 @@ def test__two_users_same_password_different_hash__succeeds(app_manager):
                                     password="passy")
     uname = app_manager.get_user(username="uname")
     assert uname.password_hashed != harry.password_hashed
+
+
+def test__user_can_create_bucketlist__succeeds(user_uname):
+    """Make sure a user can create a bucket-list"""
+    bucketlist = user_uname.create_bucketlist(name="first one")
+    assert isinstance(bucketlist, BucketList)
+    assert isinstance(user_uname.buckets["first one"], BucketList)
+
+
+def test__user_cannot_create_duplicate_bucketlist__raises(user_uname):
+    """Make sure a user cannot create a duplicate bucket-list"""
+    user_uname.create_bucketlist(name="first one")
+    with pytest.raises(BucketListAlreadyExistsError):
+        user_uname.create_bucketlist(name="first one")
+
+
+def test__user_can_retrieve_bucketlist__succeeds(user_uname):
+    """Make sure a user can retrieve a bucket-list"""
+    user_uname.create_bucketlist(name="first one")
+    bucketlist = user_uname.get_bucketlist(name="first one")
+    assert isinstance(bucketlist, BucketList)
+    bucketlist2 = user_uname.buckets["first one"]
+    assert bucketlist2.name == "first one"
+
+
+def test__user_cannot_retrieve_nonexistent_bucketlist__raises(user_uname):
+    """Make sure a user cannot retrieve a non-existent bucket-list"""
+    with pytest.raises(BucketListNotExistsError):
+        bucketlist = user_uname.get_bucketlist(name="first one")
+
+
+def test__user_can_delete_bucketlist__succeeds(user_uname):
+    """Make sure a user can delete a bucket-list"""
+    user_uname.create_bucketlist(name="first one")
+    status = user_uname.delete_bucketlist(name="first one")
+    assert status
+    with pytest.raises(BucketListNotExistsError):
+        user_uname.get_bucketlist(name="first one")
+
+
+def test__user_cannot_delete_nonexistent_bucketlist__raises(user_uname):
+    """Make sure a user cannot delete a non-existent bucket-list"""
+    with pytest.raises(BucketListNotExistsError):
+        status = user_uname.delete_bucketlist(name="first one")
