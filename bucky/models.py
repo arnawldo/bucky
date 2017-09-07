@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from bucky.exceptions import UserNotExistsError, UserAlreadyExistsError, BucketListAlreadyExistsError, \
-    BucketListNotExistsError
+    BucketListNotExistsError, TaskAlreadyExistsError, TaskNotExistsError
 
 
 class AppManager(object):
@@ -148,10 +148,55 @@ class BucketList(object):
 
     Attributes:
         name -- name of bucket-list
+        tasks -- tasks created by bucket-list
     """
 
     def __init__(self, name):
         self.name = name
+        self.tasks = {}
+
+    def create_task(self, description):
+        """Create task with given description
+
+        :param description: description of task
+        :type name: str
+        :return: created task
+        :rtype: Task
+        """
+        try:
+            task = self.tasks[description]
+            raise TaskAlreadyExistsError("Task <{}> already exists".format(task.description))
+        except KeyError:
+            self.tasks[description] = Task(description=description)
+            return self.tasks[description]
+
+    def get_task(self, description):
+        """Retrieve task of given description
+
+        :param description: description of task
+        :type name: str
+        :return: task
+        :rtype: Task
+        """
+        try:
+            return self.tasks[description]
+        except KeyError:
+            raise TaskNotExistsError("Task <{}> cannot be found".format(description))
+
+    def delete_task(self, description):
+        """Delete task of given description
+
+        :param description: description of task
+        :type name: str
+        :return: operation success
+        :rtype: bool
+        """
+        try:
+            del self.tasks[description]
+            return True
+        except KeyError:
+            raise TaskNotExistsError("Task <{}> cannot be found".format(description))
+
 
 class Task(object):
     """Class for tasks created by bucket-list of user
@@ -162,3 +207,4 @@ class Task(object):
 
     def __init__(self, description):
         self.description = description
+

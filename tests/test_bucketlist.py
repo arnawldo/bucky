@@ -15,6 +15,7 @@ def bucket1():
     bucket1 = user.create_bucketlist(name="bucket1")
     return bucket1
 
+
 def test__bucketlist_can_create_task__succeeds(bucket1):
     """Make sure bucket-list can create a task"""
     assert len(bucket1.tasks) == 0
@@ -22,14 +23,15 @@ def test__bucketlist_can_create_task__succeeds(bucket1):
     assert len(bucket1.tasks) == 1
     task1 = bucket1.get_task(description="first task")
     assert task1.description == "first task"
-    
+
+
 def test__bucketlist_cannot_create_existing_task__raises(bucket1):
     """Make sure bucket-list cannot create an already existing task"""
     bucket1.create_task(description="first task")
     assert len(bucket1.tasks) == 1
     with pytest.raises(TaskAlreadyExistsError):
         bucket1.create_task(description="first task")
-        
+
 
 def test__bucketlist_can_retrieve_task__succeeds(bucket1):
     """Make sure a bucket-list can retrieve a task"""
