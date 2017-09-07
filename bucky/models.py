@@ -41,10 +41,12 @@ class AppManager(object):
 
         :param username: username of user
         :return: Operation success
+        :rtype: bool
         """
 
         try:
             del self.users[username]
+            return True
         except KeyError:
             raise UserNotExistsError("User <{}> cannot be found".format(username))
 
