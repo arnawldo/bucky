@@ -31,7 +31,8 @@ class BucketListNotExistsError(Error):
         Attributes:
             message -- explanation of error
         """
-    pass
+    def __init__(self, message):
+        self.message = message
 
 
 class BucketListAlreadyExistsError(Error):
@@ -40,4 +41,26 @@ class BucketListAlreadyExistsError(Error):
         Attributes:
             message -- explanation of error
         """
-    pass
+    def __init__(self, message):
+        self.message = message
+
+
+class TaskAlreadyExistsError(Error):
+    """Exception raised when creating task but already exists in bucket-list
+
+    Attributes:
+        message -- explanation of error
+    """
+
+    def __init__(self, message):
+        self.message = message
+
+class TaskNotExistsError(Error):
+    """Exception raised when task cannot be found in bucketlist
+
+    Attributes:
+        message -- explanation of error
+    """
+
+    def __init__(self, message):
+        self.message = message

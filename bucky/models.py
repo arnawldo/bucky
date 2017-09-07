@@ -152,3 +152,13 @@ class BucketList(object):
 
     def __init__(self, name):
         self.name = name
+
+class Task(object):
+    """Class for tasks created by bucket-list of user
+
+        Attributes:
+            description -- description of task
+        """
+
+    def __init__(self, description):
+        self.description = description
