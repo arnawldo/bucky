@@ -4,71 +4,87 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bucky import login_manager
 from bucky.exceptions import UserNotExistsError, UserAlreadyExistsError, BucketListAlreadyExistsError, \
     BucketListNotExistsError, TaskAlreadyExistsError, TaskNotExistsError
-from bucky_app import am
 
 
 class AppManager(object):
-    """Creates and manages User instances of the web app.
+    """Creates AppManager (User store) of the web app.
+
+    This class implements the singleton pattern to keep only a single AppManager
+    object wherever it is instantiated.
+    AppManager is a shell class that always returns __AppManager (the Singleton)
+
     All data on app is lost if the AppManager object is deleted
 
     Attributes:
-        users -- Collection of User instances
+        instance -- Class attribute that stores the singleton
     """
+    class __AppManager(object):
+        """Class that stores and manages User instances.
+        Only one of this can be created
+
+        """
+        def __init__(self):
+            """Initialize app manager with zero users"""
+            self.users = {}
+
+        def create_user(self, username, email, password):
+            """
+            Add user instance to storage
+
+            :param username: username of user
+            :type username: str
+            :param email: email of user
+            :type email: str
+            :param password: hashed password
+            :type password: str
+            :return: created user instance
+            :rtype: User
+            """
+            try:
+                user = self.users[username]
+                raise UserAlreadyExistsError("User <{}> already exists".format(user.username))
+            except KeyError:
+                self.users[username] = User(username, email, password)
+                return self.users[username]
+
+        def delete_user(self, username):
+            """
+            Delete user instance from storage
+
+            :param username: username of user
+            :return: Operation success
+            :rtype: bool
+            """
+
+            try:
+                del self.users[username]
+                return True
+            except KeyError:
+                raise UserNotExistsError("User <{}> cannot be found".format(username))
+
+        def get_user(self, username):
+            """
+            Retrieve user instance of given name
+
+            :param username: username of user
+            :return: User object
+            """
+            try:
+                return self.users[username]
+            except KeyError:
+                raise UserNotExistsError("User <{}> cannot be found".format(username))
+
+        def __repr__(self):
+            return "AppManager <n_users={}>".format(len(self.users))
+
+    instance = None # Singleton store
 
     def __init__(self):
-        """Initialize app manager with zero users"""
-        self.users = {}
-
-    def create_user(self, username, email, password):
-        """
-        Add user instance to storage
-
-        :param username: username of user
-        :type username: str
-        :param email: email of user
-        :type email: str
-        :param password: hashed password
-        :type password: str
-        :return: created user instance
-        :rtype: User
-        """
-
-        try:
-            user = self.users[username]
-            raise UserAlreadyExistsError("User <{}> already exists".format(user.username))
-        except KeyError:
-            self.users[username] = User(username, email, password)
-            return self.users[username]
-
-    def delete_user(self, username):
-        """
-        Delete user instance from storage
-
-        :param username: username of user
-        :return: Operation success
-        :rtype: bool
-        """
-
-        try:
-            del self.users[username]
-            return True
-        except KeyError:
-            raise UserNotExistsError("User <{}> cannot be found".format(username))
-
-    def get_user(self, username):
-        """
-        Retrieve user instance of given name
-
-        :param username: username of user
-        :return: User object
-        """
-        try:
-            return self.users[username]
-        except KeyError:
-            raise UserNotExistsError("User <{}> cannot be found".format(username))
+        if not AppManager.instance:
+            AppManager.instance = AppManager.__AppManager()
 
     def __repr__(self):
-        return "AppManager <n_users={}>".format(len(self.users))
+        return "AppManager Store\nStoring:{}".format(AppManager.instance)
 
 
 class User(UserMixin, object):
@@ -161,7 +177,11 @@ class User(UserMixin, object):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return am.get_user(username=user_id)
+    am = AppManager().instance
+    try:
+        return am.get_user(username=user_id)
+    except UserNotExistsError:
+        return None
 
 class BucketList(object):
     """Class for bucket-lists created by users of app
