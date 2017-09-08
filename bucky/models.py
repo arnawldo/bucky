@@ -63,6 +63,9 @@ class AppManager(object):
         except KeyError:
             raise UserNotExistsError("User <{}> cannot be found".format(username))
 
+    def __repr__(self):
+        return "AppManager <n_users={}>".format(len(self.users))
+
 
 class User(object):
     """Class for users of app
@@ -142,6 +145,9 @@ class User(object):
         except KeyError:
             raise BucketListNotExistsError("BucketList <{}> cannot be found".format(name))
 
+    def __repr__(self):
+        return "User <{}>".format(self.username)
+
 
 class BucketList(object):
     """Class for bucket-lists created by users of app
@@ -197,6 +203,9 @@ class BucketList(object):
         except KeyError:
             raise TaskNotExistsError("Task <{}> cannot be found".format(description))
 
+    def __repr__(self):
+        return "BucketList <{}>".format(self.name)
+
 
 class Task(object):
     """Class for tasks created by bucket-list of user
@@ -208,3 +217,5 @@ class Task(object):
     def __init__(self, description):
         self.description = description
 
+    def __repr__(self):
+        return "Task <{}>".format(self.description)
