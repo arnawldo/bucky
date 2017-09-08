@@ -3,8 +3,21 @@
 {% block title %}Login{% endblock %}
 
 {% block page_content %}
-    <div id="welcome">
-        <h1>Login</h1>
-
-    </div>
+    <div id="register">
+        <form action="" method="post" name="login">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>Login</legend>
+                Username:<br/>
+                {{ form.username }}
+                Email:<br/>
+                {{ form.email }}
+                Password:<br/>
+                {{ form.password }}
+                Remember me:<br/>
+                {{ form.remember_me }}
+            </fieldset>
+            <div class="submit">{{ form.submit }}</div>
+        </form>
+    </div><!-- end login block -->
 {% endblock %}

@@ -1,6 +1,10 @@
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from bucky import login_manager
 from bucky.exceptions import UserNotExistsError, UserAlreadyExistsError, BucketListAlreadyExistsError, \
     BucketListNotExistsError, TaskAlreadyExistsError, TaskNotExistsError
+from bucky_app import am
 
 
 class AppManager(object):
@@ -67,7 +71,7 @@ class AppManager(object):
         return "AppManager <n_users={}>".format(len(self.users))
 
 
-class User(object):
+class User(UserMixin, object):
     """Class for users of app
 
     Attributes:
@@ -145,9 +149,19 @@ class User(object):
         except KeyError:
             raise BucketListNotExistsError("BucketList <{}> cannot be found".format(name))
 
+    def get_id(self):
+        """Get unique identifier of user. Requirement for flask-login ext
+
+        :return: username of user
+        """
+        return self.username
+
     def __repr__(self):
         return "User <{}>".format(self.username)
 
+@login_manager.user_loader
+def load_user(user_id):
+    return am.get_user(username=user_id)
 
 class BucketList(object):
     """Class for bucket-lists created by users of app

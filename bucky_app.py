@@ -4,6 +4,7 @@ import click
 
 from bucky.models import Task, BucketList, User, AppManager
 
+am = AppManager()
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
 
