@@ -175,6 +175,7 @@ class User(UserMixin, object):
     def __repr__(self):
         return "User <{}>".format(self.username)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     am = AppManager().instance
