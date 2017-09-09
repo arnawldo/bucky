@@ -1,23 +1,13 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Bucky - Login{% endblock %}
 
 {% block page_content %}
-    <div id="register">
-        <form action="" method="post" name="login">
-            {{ form.hidden_tag() }}
-            <fieldset>
-                <legend>Login</legend>
-                Username:<br/>
-                {{ form.username }}
-                Email:<br/>
-                {{ form.email }}
-                Password:<br/>
-                {{ form.password }}
-                Remember me:<br/>
-                {{ form.remember_me }}
-            </fieldset>
-            <div class="submit">{{ form.submit }}</div>
-        </form>
-    </div><!-- end login block -->
+    <div class="page-header">
+        <h1>Login</h1>
+    </div><!-- end header block-->
+    <div class="col-xs-12 col-sm-8 col-md-4">
+        {{ wtf.quick_form(form) }}
+    </div><!-- end form block -->
 {% endblock %}

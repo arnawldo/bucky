@@ -1,9 +1,9 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Length, Regexp, Email
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(1, 24), Regexp('^[a-z0-9_-]{1, 24}')])
     email = StringField('Email', validators=[DataRequired(), Length(1, 24), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
