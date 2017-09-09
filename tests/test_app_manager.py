@@ -5,10 +5,16 @@ from bucky.models import AppManager
 
 
 @pytest.fixture
-def am():
+def am(request):
     """Fixture for AppManager class
     """
-    am = AppManager()
+    am = AppManager().instance
+
+    # delete app manager after every single test
+    def teardown():
+        AppManager.instance = None
+    request.addfinalizer(teardown)
+
     return am
 
 

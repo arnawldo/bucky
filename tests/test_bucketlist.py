@@ -5,14 +5,20 @@ from bucky.models import AppManager, Task
 
 
 @pytest.fixture
-def bucket1():
+def bucket1(request):
     """Fixture for a unique bucket-list
     """
-    am = AppManager()
+    am = AppManager().instance
     user = am.create_user(username="uname",
                           email="uname@gmail.com",
                           password="passy")
     bucket1 = user.create_bucketlist(name="bucket1")
+
+    # delete app manager after every single test
+    def teardown():
+        AppManager.instance = None
+    request.addfinalizer(teardown)
+
     return bucket1
 
 

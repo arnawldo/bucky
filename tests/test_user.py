@@ -6,12 +6,18 @@ from bucky.models import AppManager, BucketList
 
 
 @pytest.fixture
-def app_manager():
+def app_manager(request):
     """Fixture for App Manager initialized with a user"""
-    app_manager = AppManager()
+    app_manager = AppManager().instance
     app_manager.create_user(username="uname",
                             email="uname@gmail.cxom",
                             password="passy")
+
+    # delete app manager after every single test
+    def teardown():
+        AppManager.instance = None
+    request.addfinalizer(teardown)
+
     return app_manager
 
 
@@ -19,7 +25,7 @@ def app_manager():
 def user_uname(app_manager):
     """Fixture for the unique user called 'uname' """
     user = app_manager.get_user(username="uname")
-    return user
+    yield user
 
 
 def test__password_is_hashed__succeeds(user_uname):
