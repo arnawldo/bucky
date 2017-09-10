@@ -6,3 +6,7 @@ from wtforms.validators import DataRequired, Length
 class BucketListForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 24)])
     submit = SubmitField('Create Bucket-list')
+
+class TaskForm(FlaskForm):
+    description = StringField('Name', validators=[DataRequired(), Length(1, 24)])
+    submit = SubmitField('Create task')

@@ -50,3 +50,24 @@ def test__user_can_create_bucketlist__succeeds(client):
                            data=dict(name="bucket 1"),
                            follow_redirects=True)
     assert b'bucket 1' in response.data
+
+
+def test__cannot_create_duplicate_bucketlist_and_task__succeeds(client):
+    """Make sure user can create bucket-list and can see it"""
+    register_and_login(client, "arny", "passy")
+    response = client.post('/create_bucketlist',
+                           data=dict(name="bucket 1"),
+                           follow_redirects=True)
+    assert b'bucket 1' in response.data
+    response = client.post('/create_bucketlist',
+                           data=dict(name="bucket 1"),
+                           follow_redirects=True)
+    assert b'This bucket-list already exists!' in response.data
+    response = client.post('/bucketlist/bucket 1',
+                           data=dict(description="task 1"),
+                           follow_redirects=True)
+    assert b'task 1' in response.data
+    response = client.post('/bucketlist/bucket 1',
+                           data=dict(description="task 1"),
+                           follow_redirects=True)
+    assert b'This task already exists' in response.data

@@ -16,9 +16,10 @@
              <h1>BUCKET-LISTS</h1>
              <ul>
              {% for bucket_name, bucket_object in current_user.buckets.items() %}
-                <li>{{ bucket_name }}</li>
+                <a href="{{ url_for('main.bucketlist', name=bucket_name) }}"><li>{{ bucket_name }}</li></a>
             {% endfor %}
              </ul>
+             <p><a class="btn btn-primary btn-lg" href="{{ url_for('main.create_bucketlist') }}" role="button">Create a bucket-list</a></p>
          {% endif %}
 {#        ANONYMOUS USER#}
     {% else %}
