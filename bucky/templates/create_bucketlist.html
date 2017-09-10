@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Bucky - Create BucketList{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>New BucketList</h1>
+    </div><!-- end header block-->
+    <div class="col-xs-12 col-sm-8 col-md-4">
+        {{ wtf.quick_form(form) }}
+    </div><!-- end form block -->
+{% endblock %}

@@ -5,10 +5,25 @@
 {% block page_content %}
     <div class="jumbotron">
     {% if current_user.is_authenticated %}
-        <h1>Welcome {{ current_user.username }}</h1>
+         {% if current_user.buckets|length == 0 %}
+{#             NO BUCKET-LISTS#}
+            <div class="jumbotron">
+                <h3>Looks like you dont have any buckets...Let's change that!</h3>
+                <p><a class="btn btn-primary btn-lg" href="{{ url_for('main.create_bucketlist') }}" role="button">Create a bucket-list</a></p>
+            </div>
+        {% else %}
+{#             SHOW BUCKET-LIST#}
+             <h1>BUCKET-LISTS</h1>
+             <ul>
+             {% for bucket_name, bucket_object in current_user.buckets.items() %}
+                <li>{{ bucket_name }}</li>
+            {% endfor %}
+             </ul>
+         {% endif %}
+{#        ANONYMOUS USER#}
     {% else %}
         <h1>Plan for the future today with Bucky!</h1>
-        <button> Get started</button>
+        <p><a class="btn btn-primary btn-lg" href="{{ url_for('auth.login') }}" role="button">Get started</a></p>
     {% endif %}
-    </div><!-- end welcome block -->
+    </div>
 {% endblock %}

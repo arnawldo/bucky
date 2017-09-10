@@ -23,7 +23,7 @@ def test__user_can_register_login_logout__succeeds(client):
         username="arny",
         password="test"
     ), follow_redirects=True)
-    assert b'Welcome' in response.data
+    assert b'Looks like you dont have any buckets' in response.data
     assert response.status_code == 200
 
     response = client.get('/auth/logout', follow_redirects=True)
