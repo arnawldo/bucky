@@ -28,6 +28,11 @@ def user_uname(app_manager):
     yield user
 
 
+def test__user_has_custom_repr__succeeds(user_uname):
+    """Make sure user has custom __repr__ method"""
+    assert 'User <uname>' in user_uname.__repr__()
+
+
 def test__password_is_hashed__succeeds(user_uname):
     """Make sure user password is stored hashed"""
     assert user_uname.password_hashed != "passy"

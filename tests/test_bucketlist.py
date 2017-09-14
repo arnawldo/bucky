@@ -22,6 +22,11 @@ def bucket1(request):
     return bucket1
 
 
+def test__bucketlist_has_custom_repr__succeeds(bucket1):
+    """Make sure bucketlist has custom __repr__ method"""
+    assert 'BucketList <bucket1>' in bucket1.__repr__()
+
+
 def test__bucketlist_can_create_task__succeeds(bucket1):
     """Make sure bucket-list can create a task"""
     assert len(bucket1.tasks) == 0
@@ -29,6 +34,12 @@ def test__bucketlist_can_create_task__succeeds(bucket1):
     assert len(bucket1.tasks) == 1
     task1 = bucket1.get_task(description="first task")
     assert task1.description == "first task"
+
+
+def test__task_has_custom_repr__succeeds(bucket1):
+    """Make sure task has custom __repr__ method"""
+    task = bucket1.create_task(description="first task")
+    assert 'Task <first task>' in task.__repr__()
 
 
 def test__bucketlist_cannot_create_existing_task__raises(bucket1):
