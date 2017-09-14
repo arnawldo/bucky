@@ -236,7 +236,7 @@ class BucketList(object):
             del self.tasks[description]
             return True
         except KeyError:
-            raise TaskNotExistsError("Ta</a>sk <{}> cannot be found".format(description))
+            raise TaskNotExistsError("Task <{}> cannot be found".format(description))
 
     def __repr__(self):
         return "BucketList <{}>".format(self.name)
