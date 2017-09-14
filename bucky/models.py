@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -102,7 +104,7 @@ class User(UserMixin, object):
         self.email = email
         self.password_hashed = None
         self.set_password(password)
-        self.buckets = {}
+        self.buckets = OrderedDict()
 
     def set_password(self, password):
         """Hash password plus a salt --algorithm by Werkzeug
@@ -194,7 +196,7 @@ class BucketList(object):
 
     def __init__(self, name):
         self.name = name
-        self.tasks = {}
+        self.tasks = OrderedDict()
 
     def create_task(self, description):
         """Create task with given description
