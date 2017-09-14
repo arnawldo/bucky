@@ -5,15 +5,22 @@
 
 {% block page_content %}
     <div class="page-header">
-        <h1>{{ bucketlistname }}</h1>
+        <h1 id="bucket-name">{{ bucketlistname }}</h1>
+
     </div><!-- end header block-->
-    <div class="col-xs-12 col-sm-8 col-md-4">
-        {{ wtf.quick_form(form) }}
-    <br />
-        <ul>
-            {% for task in tasks %}
-            <li>{{ task.description }}</li>
-            {% endfor %}
-        </ul>
-    </div><!-- end form block -->
+    <ul id="list-of-tasks" class="gloria-font">
+        {% for task in tasks %}
+            <li>
+                {{ task.description }}
+            </li>
+        {% endfor %}
+    </ul>
+    <form id="newTaskForm" style="display:none">
+        <input type="text" id="newTaskName" placeholder="Add task">
+        <input type="submit" id="addTask" value="add">
+    </form>
+    <div id="grouped-buttons">
+        <button href="#" id="showAddTask">Add a task</button>
+        <button href="#" id="deleteTasks">Delete a task</button>
+    </div>
 {% endblock %}

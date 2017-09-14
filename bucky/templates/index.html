@@ -1,30 +1,55 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Bucky - Welcome{% endblock %}
 
 {% block page_content %}
-    <div class="jumbotron">
     {% if current_user.is_authenticated %}
-         {% if current_user.buckets|length == 0 %}
-{#             NO BUCKET-LISTS#}
-            <div class="jumbotron">
+        {% if current_user.buckets|length == 0 %}
+
+            <!-- NO BUCKET-LISTS -->
+            <div class="jumbotron gloria-font">
                 <h3>Looks like you dont have any buckets...Let's change that!</h3>
-                <p><a class="btn btn-primary btn-lg" href="{{ url_for('main.create_bucketlist') }}" role="button">Create a bucket-list</a></p>
+                <p>
+                    <a class="btn btn-success btn-lg" href="{{ url_for('main.create_bucketlist') }}" role="button">Create
+                        a bucket-list</a>
+                </p>
             </div>
         {% else %}
-{#             SHOW BUCKET-LIST#}
-             <h1>BUCKET-LISTS</h1>
-             <ul>
-             {% for bucket_name, bucket_object in current_user.buckets.items() %}
-                <a href="{{ url_for('main.bucketlist', name=bucket_name) }}"><li>{{ bucket_name }}</li></a>
-            {% endfor %}
-             </ul>
-             <p><a class="btn btn-primary btn-lg" href="{{ url_for('main.create_bucketlist') }}" role="button">Create a bucket-list</a></p>
-         {% endif %}
-{#        ANONYMOUS USER#}
+
+
+            <!-- SHOW BUCKET-LISTS -->
+            <div class="page-header">
+                <h1>Bucket-lists</h1>
+            </div><!-- end header block-->
+            <ul id="list-of-buckets" class="gloria-font">
+
+                {% for bucket_name, bucket_object in current_user.buckets.items() %}
+                    <li class="bucket">
+                        <a href="{{ url_for('main.bucketlist', name=bucket_name) }}">
+                            {{ bucket_name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form id="newBucketForm" style="display:none">
+                <input type="text" id="newBucketName" placeholder="Add bucket-list">
+                <input type="submit" id="add-bucketlist" value="Add">
+            </form>
+            <div id="grouped-buttons">
+                <button href="#" id="showAddBucketList">Add a bucket-list</button>
+                <button href="#" id="deleteBucketLists">Delete a bucket-list</button>
+            </div>
+
+
+
+        {% endif %}
+        {#        ANONYMOUS USER#}
     {% else %}
-        <h1>Plan for the future today with Bucky!</h1>
-        <p><a class="btn btn-primary btn-lg" href="{{ url_for('auth.login') }}" role="button">Get started</a></p>
+        <div class="jumbotron gloria-font">
+            <h1>Plan for the future today with Bucky!</h1>
+            <p><a class="btn btn-success btn-lg" href="{{ url_for('auth.login') }}" role="button">Get started</a></p>
+        </div>
+
     {% endif %}
-    </div>
 {% endblock %}

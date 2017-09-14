@@ -1,1 +1,202 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Gloria+Hallelujah');
 
+
+/*WHOLE PAGE STYLES*/
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("../images/doodles.png");
+    height: 100%;
+}
+
+.gloria-font {
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+/*NAVIGATION BAR*/
+.navbar {
+    margin: 0;
+}
+
+/*FLASH MESSAGES*/
+#flash-messages {
+    padding:15px;
+}
+
+/*ALL MAIN CONTENT*/
+.main-container {
+    height: 100%;
+}
+
+/*MIDDLE COLUMN
+CONTENT IS PLACED HERE
+*/
+#main-page {
+    height: 100%;
+    padding: 0px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+#page-content {
+    margin: 0px;
+}
+
+/*BOOTSTRAP PAGE HEADER STYLING*/
+.page-header {
+    font-family: 'Comfortaa', cursive;
+    margin: 20px;
+    padding: 0px;
+}
+
+.page-header, .jumbotron{
+    border-bottom: 3px solid black;
+
+}
+
+.page-header, .jumbotron, p {
+    text-align: center;
+
+}
+
+/*STYLING BUCKET AND TAST LIST*/
+#list-of-buckets, #list-of-tasks {
+    padding: 0px;
+    margin: 40px 0px 0px 0px;
+}
+
+#list-of-buckets li, #list-of-tasks li {
+    border-bottom: 2px solid #000000;
+    font-size: 24px;
+    letter-spacing: .05em;
+    list-style-type: none;
+    text-align: left;
+    height: 50px;
+    padding-left: 1em;
+    padding-top: 10px;
+    transition: background-color 0.5s;
+}
+
+#list-of-buckets a,  #list-of-tasks a{
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+    padding-right: 36px;
+}
+
+/* LIST HOVER PROPERTIES */
+
+#list-of-buckets li:hover, #list-of-tasks li:hover {
+    background-color: black;
+}
+
+#list-of-buckets a:link, #list-of-tasks a:link {
+    color: black;
+    text-decoration: none;
+}
+
+#list-of-buckets a:visited, #list-of-tasks a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+#list-of-buckets a:hover, #list-of-tasks a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+/*STYLE FORMS*/
+#firstBucketBlock {
+    width: 100%;
+    font-size: 20px;
+    text-align:center;
+}
+
+#firstBucketForm>input#name {
+    margin: 30px;
+    border-radius: 7px;
+}
+
+#firstBucketForm>input#submit {
+    margin: 20px;
+    border-radius: 7px;
+    color: green;
+    background-color: white;
+    }
+
+#newBucketForm, #newTaskForm {
+    display: block;
+    background-color: rgba(128, 128, 128, 0.49);
+    height: 70px;
+    padding: 3%;
+    font-size: 20px;
+}
+
+#add-bucketlist, #addTask {
+    border-radius: 7px;
+    width: 15%;
+}
+
+#newBucketName, #newTaskName {
+    border-radius: 7px;
+    width: 80%;
+    height: 80%;
+}
+
+/* DELETE AND ADD BUCKETLIST, TASK BUTTONS*/
+#grouped-buttons {
+    width:100%;
+    text-align: center;
+}
+
+#deleteBucketLists, #deleteTasks {
+    display: inline;
+    margin: 10px auto;
+    border: 2px solid red;
+    border-radius: 15px;
+    width: 30%;
+    height: 50px;
+    font-size: 15px;
+    color: red;
+    background-color: rgb(255, 255, 255);
+    transition-duration: 0.4s;
+
+}
+
+#deleteBucketLists:hover, #deleteTasks:hover {
+    color: white;
+    background-color: red;
+}
+
+#showAddBucketList, #showAddTask {
+    display: inline;
+    margin: 10px auto;
+    border: 2px solid green;
+    border-radius: 15px;
+    width: 30%;
+    height: 50px;
+    font-size: 15px;
+    color: green;
+    background-color: rgb(255, 255, 255);
+    transition-duration: 0.4s;
+}
+
+#showAddBucketList:hover, #showAddTask:hover {
+    color: white;
+    background-color: green;
+}
+
+/* HELPER STYLES */
+.display-hidden {
+    display: none;
+
+}
+
+.delete {
+    background-image: url("../images/delete.png");
+    background-position: right, center;
+    background-repeat: no-repeat;
+}
