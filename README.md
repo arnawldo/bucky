@@ -10,7 +10,7 @@ Powered by Flask and a good ol python dict!
 ## Installation  
 
 1. Install dependencies  
-`pip -r install requirements.txt`  
+`pip install -r requirements.txt`  
 2. Point flask to the application  
 `export FLASK_APP=bucky_app.py`  
 3. Fire it up  
@@ -20,5 +20,5 @@ Powered by Flask and a good ol python dict!
 ## Testing
 
 One may run tests with:  
-1. `pip -r install test_requirements.txt` (one time)
+1. `pip install -r test_requirements.txt` (one time)
 2. `python setup.py test`

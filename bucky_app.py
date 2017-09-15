@@ -1,6 +1,5 @@
 import os
 from bucky import create_app
-import click
 
 from bucky.models import Task, BucketList, User, AppManager
 
