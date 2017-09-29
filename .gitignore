@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+venv
+/.coverage
+/bucky.egg-info/
+/.cache/
+__pycache__/
+tests/__pycache__/
+/.eggs/

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Bucky - Login{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>Login</h1>
+    </div><!-- end header block-->
+    <section class="row">
+        <aside class="col-xs-1 col-sm-3">
+        </aside>
+        <div class="col-xs-10 col-sm-6 gloria-font">
+            {{ wtf.quick_form(form) }}
+            <br/>
+            <p>New User? <a href="{{ url_for('auth.register') }}">Click here to register</a></p>
+        </div><!-- end form block -->
+        <aside class="col-xs-1 col-sm-3"></aside>
+    </section>
+
+{% endblock %}
